@@ -73,6 +73,28 @@ public:
         }
         size++;
     }
+    void add(int index, T element)
+    {
+        if (index == 0)
+            addFirst(element);
+        else if (index == size)
+        {
+            addLast(element);
+        }
+        else
+        {
+            Node<T> *newNode = new Node<T>(element); // created the newNode with the value
+            Node<T> *temp = head;                    // this will be what traverses through the list
+            for (int i = 0; i < index - 1; i++)
+            {
+                // we loop until the index before where we want to insert
+                temp = temp->next;
+            }
+            newNode->next = temp->next; // newNode points to the node of specified interest
+            temp->next = newNode;       // and temp now points to newNode, meaning we successfully put newNode in the right place
+            size++;
+        }
+    }
 };
 
 int main()
@@ -81,5 +103,6 @@ int main()
     LinkedList<int> *myLinkedList = new LinkedList<int>();
     myLinkedList->addFirst(0);
     myLinkedList->addLast(7);
+    myLinkedList->add(1, 10);
     myLinkedList->printList();
 }
