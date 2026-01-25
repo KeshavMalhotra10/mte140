@@ -17,7 +17,7 @@ public:
         this->element = element;
         next = nullptr;
     }
-    void traverse(Node<T> *head)
+    void printList(Node<T> *head)
     {
         Node<string> *current = head;
         while (current != nullptr)
@@ -25,6 +25,31 @@ public:
             cout << current->element << endl;
             current = current->next;
         }
+    }
+    void addFirst(T element)
+    {
+        Node<T> *newNode = new Node<T>(element);
+
+        newNode->next = head; // newNode's next pointer now stores address of the current first node
+        head = newNode;       // the head pointer gets shifted to newNode(now 1st node)
+        size++;
+        if (tail == nullptr)
+            tail = head; // If the list was empty, this new node is both the head and the tail
+    }
+
+    void addLast(T element)
+    {
+        if (tail == nullptr)
+        {
+            head = tail = new Node<T>(element);
+            // if the list is empty, we want our head and tail to equal to this newNode
+        }
+        else
+        {
+            tail->next = newNode<T>(element);
+            tail = tail->next;
+        }
+        size++;
     }
 };
 
@@ -46,5 +71,5 @@ int main()
     tail->next = new Node<string>("Toronto");
     tail = tail->next;
 
-    head->traverse(head);
+    head->printList(head);
 }
