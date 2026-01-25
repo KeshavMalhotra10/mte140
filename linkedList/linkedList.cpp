@@ -6,26 +6,47 @@ template <typename T> // T is a blueprint for creating a class that can hold any
 class Node
 {
 public:
-    T element;  // Element contained in the node
-    Node *next; // pointer to the next node
+    T element;     // Element contained in the node
+    Node<T> *next; // pointer to the next node, we specified type of node for clarity
     Node()
     { // constructor with no arguments
         next = nullptr;
     }
-    Node(T element)
+    Node(T element) // constructor
     {
         this->element = element;
         next = nullptr;
     }
-    void printList(Node<T> *head)
+};
+
+template <typename T> // the class must have template to use T and work for any datatype
+class LinkedList
+{
+private:
+    Node<T> *head;
+    Node<T> *tail;
+    int size;
+
+public:
+    // constructor -> initializes the list to nullptr and size 0
+    LinkedList()
     {
-        Node<string> *current = head;
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+    };
+    // Print the whole list
+    void printList()
+    {
+        Node<T> *current = head;
         while (current != nullptr)
         {
             cout << current->element << endl;
             current = current->next;
         }
     }
+
+    // add a node to the beginning of list
     void addFirst(T element)
     {
         Node<T> *newNode = new Node<T>(element);
@@ -37,6 +58,7 @@ public:
             tail = head; // If the list was empty, this new node is both the head and the tail
     }
 
+    // add a node to the end of a list
     void addLast(T element)
     {
         if (tail == nullptr)
@@ -46,7 +68,7 @@ public:
         }
         else
         {
-            tail->next = newNode<T>(element);
+            tail->next = new Node<T>(element);
             tail = tail->next;
         }
         size++;
@@ -54,22 +76,10 @@ public:
 };
 
 int main()
+
 {
-    // declare a head and tail
-    Node<string> *head = nullptr; // these are pointers to nodes not nodes themselves
-    Node<string> *tail = nullptr;
-
-    // create the first node and insert it to the list
-    head = new Node<string>("Chicago"); // head points to our first node "Chicago"
-    tail = head;                        // tails also points to "Chicago"
-
-    // create second node and insert it to list
-    tail->next = new Node<string>("Denver"); // we create a new node that is next of Chicago using tail->next
-    tail = tail->next;                       // we move the tail pointer to the last node
-
-    // Create a third node and insert it to list
-    tail->next = new Node<string>("Toronto");
-    tail = tail->next;
-
-    head->printList(head);
+    LinkedList<int> *myLinkedList = new LinkedList<int>();
+    myLinkedList->addFirst(0);
+    myLinkedList->addLast(7);
+    myLinkedList->printList();
 }
