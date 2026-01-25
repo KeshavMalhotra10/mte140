@@ -95,6 +95,25 @@ public:
             size++;
         }
     }
+
+    void removeFirst() throw(runtime_error)
+    {
+        if (size == 0)
+        {
+            throw runtime_error("No elements in the list");
+        }
+        else
+        {
+            Node<T> *temp = head; // create a scout & point to the head(we will delete later on)
+            head = head->next;    // shift head forward
+            size--;               // decrease size
+            if (head == nullptr)
+                tail = nullptr;
+            T element = temp->element; // store the value of temp so we can delete safely
+        }
+        delete temp;
+        return element;
+    }
 };
 
 int main()
