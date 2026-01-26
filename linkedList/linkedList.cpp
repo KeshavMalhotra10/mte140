@@ -114,6 +114,34 @@ public:
         delete temp;
         return element;
     }
+
+    void removeLast() throw(runtime_error)
+    {
+        if (size == 0)
+            throw runtime_error("No elements in the list");
+        else if (size == 1)
+        {
+            Node<T> *temp = head;
+            head = tail = nullptr;
+            size = 0;
+            T element = temp->element;
+            delete temp;
+            return element;
+        }
+        else
+        {
+            Node<T> *current = head;
+            for (int i = 0; i < size - 2; i++)
+                current = current->next;
+            Node<T> temp = tail;
+            tail = current;
+            tail->next = nullptr;
+            size--;
+            T element = temp->element;
+            delete temp;
+            return element;
+        }
+    }
 };
 
 int main()
