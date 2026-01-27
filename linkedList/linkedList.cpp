@@ -96,7 +96,7 @@ public:
         }
     }
 
-    void removeFirst() throw(runtime_error)
+    T removeFirst() throw(runtime_error)
     {
         if (size == 0)
         {
@@ -110,12 +110,12 @@ public:
             if (head == nullptr)
                 tail = nullptr;
             T element = temp->element; // store the value of temp so we can delete safely
+            delete temp;
+            return element;
         }
-        delete temp;
-        return element;
-    }
+        }
 
-    void removeLast() throw(runtime_error)
+    T removeLast() throw(runtime_error)
     {
         if (size == 0)
             throw runtime_error("No elements in the list");
