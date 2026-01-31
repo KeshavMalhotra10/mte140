@@ -176,6 +176,24 @@ public:
         }
         return true;
     }
+    Node<T> *kFromEnd(int k)
+    {
+        // we are assuming size is not known
+        int unknownSize = 0;
+        Node<T> *scout = head;
+        while (scout != nullptr)
+        {
+            unknownSize++;
+            scout = scout->next;
+        }
+        int kPos = unknownSize - k - 1;
+        scout = head;
+        for (int i = 0; i < kPos; i++)
+        {
+            scout = scout->next;
+        }
+        return scout;
+    }
 };
 int main()
 {
@@ -213,4 +231,14 @@ int main()
 
     bool sameSequence = firstList.sameSequence(secondList); // don't need to put ampersand "&" since already in function
     cout << sameSequence << endl;
+
+    LinkedList<int> thirdList;
+    thirdList.addFront(5);
+    thirdList.addFront(4);
+    thirdList.addFront(3);
+    thirdList.addFront(2);
+    thirdList.addFront(1);
+
+    Node<int> *kthNode = thirdList.kFromEnd(2);
+    cout << "K'th Node: " << kthNode->value << endl;
 }
