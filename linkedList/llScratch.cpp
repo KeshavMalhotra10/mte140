@@ -123,6 +123,10 @@ public:
             size--;
         }
     }
+    int getSize()
+    {
+        return size;
+    }
     void clear()
     {
         while (head != nullptr)
@@ -156,11 +160,26 @@ public:
             current = current->next;
         }
     }
+    bool sameSequence(const LinkedList &other)
+    {
+        Node<T> *a = this->head;
+        Node<T> *b = other.head; // don't use ->, other is not a pointer
+        while (a != nullptr && b != nullptr)
+        {
+            if (a->value != b->value)
+                return false;
+            else
+            {
+                a = a->next;
+                b = b->next;
+            }
+        }
+        return true;
+    }
 };
-
 int main()
 {
-    LinkedList<int> myLinkedList(7);
+    // LinkedList<int> myLinkedList(7);
     // myLinkedList.addFront(6);
     // myLinkedList.addLast(4);
     // myLinkedList.add(1, 6);
@@ -174,11 +193,24 @@ int main()
     // myLinkedList.remove(2);
     // myLinkedList.printList();
 
-    LinkedList<int> secondList(1);
-    secondList.addFront(2);
+    // LinkedList<int> secondList(1);
+    // secondList.addFront(2);
+    // secondList.addFront(1);
+    // secondList.addFront(2);
+    // secondList.addFront(1);
+    // secondList.removeDupe();
+    // secondList.printList();
+
+    LinkedList<int> firstList;
+    firstList.addFront(1);
+    firstList.addFront(2);
+    firstList.addFront(3);
+
+    LinkedList<int> secondList;
     secondList.addFront(1);
     secondList.addFront(2);
-    secondList.addFront(1);
-    secondList.removeDupe();
-    secondList.printList();
+    secondList.addFront(3);
+
+    bool sameSequence = firstList.sameSequence(secondList); // don't need to put ampersand "&" since already in function
+    cout << sameSequence << endl;
 }
