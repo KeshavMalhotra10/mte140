@@ -139,6 +139,11 @@ public:
         size = 0;
     }
 
+    T front()
+    {
+        return head->value;
+    }
+
     void removeDupe()
     {
         Node<T> *current = head;
@@ -194,6 +199,56 @@ public:
         }
         return scout;
     }
+
+    bool isPalindrome() const
+    {
+        LinkedList<T> stack;
+        Node<T> *current = head;
+
+        // we populate fullStack
+        while (current != nullptr)
+        {
+            stack.addFront(current->value);
+            current = current->next;
+        }
+
+        current = head;
+        while (current != nullptr)
+        {
+            if (current->value != stack.front())
+                return false;
+            else
+            {
+                current = current->next;
+                stack.removeFirst();
+            }
+        }
+        return true;
+    }
+    void removeAllSpecificValue(const T &v)
+    {
+        Node<T> *cur = head;
+        while (cur->next != nullptr)
+        {
+            if (head->value == v)
+            {
+                Node<T> *temp = head;
+                head = head->next;
+                cur = head;
+                delete temp;
+                size--;
+            }
+            else if (cur->next->value == v)
+            {
+                Node<T> *temp = cur->next;
+                cur->next = temp->next;
+                delete temp;
+                size--;
+            }
+            else
+                cur = cur->next;
+        }
+    }
 };
 int main()
 {
@@ -241,4 +296,28 @@ int main()
 
     Node<int> *kthNode = thirdList.kFromEnd(2);
     cout << "K'th Node: " << kthNode->value << endl;
+
+    // Palindrome
+    LinkedList<char> palindromeString;
+    palindromeString.addFront('R');
+    palindromeString.addFront('A');
+    palindromeString.addFront('C');
+    palindromeString.addFront('E');
+    palindromeString.addFront('C');
+    palindromeString.addFront('A');
+    palindromeString.addFront('B');
+
+    cout << palindromeString.isPalindrome();
+
+    LinkedList<int> numbers;
+    numbers.addFront(7);
+    numbers.addFront(7);
+    numbers.addFront(7);
+    numbers.addFront(7);
+    numbers.addFront(1);
+    numbers.addFront(7);
+    cout << endl;
+    numbers.printList();
+    numbers.removeAllSpecificValue(7);
+    numbers.printList();
 }
