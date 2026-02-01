@@ -181,6 +181,10 @@ public:
             size--;
         }
     }
+    int getSize() const
+    {
+        return size;
+    }
 };
 
 int main()
@@ -193,4 +197,6 @@ int main()
     newList.printList();
     newList.remove(2);
     newList.printList();
+    int listSize = newList.getSize();
+    cout << listSize;
 }
