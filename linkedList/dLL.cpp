@@ -114,6 +114,73 @@ public:
             size++;
         }
     }
+
+    void removeFront()
+    {
+        if (size == 0)
+        {
+            return;
+        }
+        else if (size == 1)
+        {
+            Node<T> *temp = head;
+            head = tail = nullptr;
+            delete temp;
+            size--;
+        }
+        else
+        {
+            Node<T> *temp = head;
+            head = head->next;
+            head->prev = nullptr;
+            delete temp;
+            size--;
+        }
+    }
+
+    void removeLast()
+    {
+        if (size == 0)
+            return;
+        else if (size == 1)
+        {
+            Node<T> *temp = head;
+            head = tail = nullptr;
+            delete temp;
+            size--;
+        }
+        else
+        {
+            Node<T> *temp = tail;
+            tail = tail->prev;
+            tail->next = nullptr;
+            delete temp;
+            size--;
+        }
+    }
+
+    void remove(int index)
+    {
+        if (size == 0 || size == 1)
+            return removeFront();
+        else if (index == size - 1)
+        {
+            return removeLast();
+        }
+        else
+        {
+            Node<T> *cur = head;
+            for (int i = 0; i < index - 1; i++)
+            {
+                cur = cur->next;
+            }
+            Node<T> *temp = cur->next;
+            cur->next = temp->next;
+            temp->next->prev = cur;
+            delete temp;
+            size--;
+        }
+    }
 };
 
 int main()
@@ -123,5 +190,7 @@ int main()
     newList.addLast(5);
     newList.addLast(6);
     newList.add(3, 100);
+    newList.printList();
+    newList.remove(2);
     newList.printList();
 }
