@@ -276,6 +276,16 @@ public:
         }
         return slow;
     }
+    void printOtherList(const LinkedList<T> &otherList)
+    {
+        Node<T> *current = otherList.head;
+        while (current != nullptr)
+        {
+            cout << current->value << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
 };
 int main()
 {
@@ -355,4 +365,8 @@ int main()
     middleNodeList.addLast(4);
     Node<int> *middleNode = middleNodeList.returnMiddleNode();
     cout << "middle node value: " << middleNode->value << endl;
+
+    // using another list to access an existing list
+    LinkedList<int> oneMoreList;
+    oneMoreList.printOtherList(middleNodeList);
 }
