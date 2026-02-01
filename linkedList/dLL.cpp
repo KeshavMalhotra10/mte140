@@ -185,6 +185,24 @@ public:
     {
         return size;
     }
+    bool isPalindrome()
+    {
+        string fwdString = "";
+        string bwdString = "";
+        Node<T> *cur = head;
+        for (int i = 0; i < size; i++)
+        {
+            fwdString += cur->value;
+            cur = cur->next;
+        }
+        cur = tail;
+        for (int i = 0; i < size; i++)
+        {
+            bwdString += cur->value;
+            cur = cur->prev;
+        }
+        return fwdString == bwdString;
+    }
 };
 
 int main()
@@ -199,4 +217,11 @@ int main()
     newList.printList();
     int listSize = newList.getSize();
     cout << listSize;
+
+    doublyLinkedList<char> charList;
+    charList.addFront('a');
+    charList.addFront('b');
+    charList.addFront('c');
+    bool isPalindrome = charList.isPalindrome();
+    cout << "is palnindrome, 0/1: " << isPalindrome << endl;
 }
