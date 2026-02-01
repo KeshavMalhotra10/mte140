@@ -52,16 +52,32 @@ public:
     }
     void addFront(const T &v)
     {
-        Node<T> *newNode = new Node(v);
-        newNode->next = head;
-        head = newNode;
+        Node<T> *newNode = new Node<T>(v);
+        if (head == nullptr)
+        {
+            head = tail = newNode;
+            newNode->next = nullptr;
+        }
+        else
+        {
+            newNode->next = head;
+            head = newNode;
+        }
         size++;
     }
     void addLast(const T &v)
     {
-        Node<T> *newNode = new Node(v);
-        tail->next = newNode;
-        tail = newNode;
+        Node<T> *newNode = new Node<T>(v);
+        newNode->next = nullptr;
+        if (tail == nullptr)
+        {
+            tail = head = newNode;
+        }
+        else
+        {
+            tail->next = newNode;
+            tail = newNode;
+        }
         size++;
     }
     void add(int index, const T &v)
@@ -249,6 +265,17 @@ public:
                 cur = cur->next;
         }
     }
+    Node<T> *returnMiddleNode()
+    {
+        Node<T> *slow = head;
+        Node<T> *fast = head;
+        while (fast != nullptr && fast->next != nullptr)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
 };
 int main()
 {
@@ -320,4 +347,12 @@ int main()
     numbers.printList();
     numbers.removeAllSpecificValue(7);
     numbers.printList();
+
+    LinkedList<int> middleNodeList;
+    middleNodeList.addLast(1);
+    middleNodeList.addLast(2);
+    middleNodeList.addLast(3);
+    middleNodeList.addLast(4);
+    Node<int> *middleNode = middleNodeList.returnMiddleNode();
+    cout << "middle node value: " << middleNode->value << endl;
 }
