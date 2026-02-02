@@ -286,6 +286,68 @@ public:
         }
         cout << endl;
     }
+    int numberSameValues(const LinkedList<T> &otherList)
+    {
+        Node<T> *a = head;
+        Node<T> *b = otherList.head;
+        int counter = 0;
+        while (a != nullptr)
+        {
+            while (b != nullptr)
+            {
+                if (b->value == a->value)
+                    counter++;
+
+                b = b->next;
+            }
+            b = otherList.head;
+            a = a->next;
+        }
+
+        return counter;
+    }
+    void appendOtherList(LinkedList<T> &other)
+    {
+        Node<T> *temp = other.head;
+        while (temp != nullptr)
+        {
+            this->addLast(temp->value);
+            temp = temp->next;
+        }
+    }
+
+    LinkedList<T> mergeSortedLists(const LinkedList<T> &other)
+    {
+        LinkedList<T> merged;
+        Node<T> *a = head;
+        Node<T> *b = other.head;
+
+        while (a != nullptr && b != nullptr)
+        {
+            if (a->value < b->value)
+            {
+                merged.addLast(a->value);
+                a = a->next;
+            }
+            else
+            {
+                merged.addLast(b->value);
+                b = b->next;
+            }
+        }
+        while (a != nullptr)
+        {
+            merged.addLast(a->value);
+            a = a->next;
+        }
+
+        while (b != nullptr)
+        {
+            merged.addLast(b->value);
+            b = b->next;
+        }
+        return merged;
+    }
 };
 int main()
 {
@@ -369,4 +431,37 @@ int main()
     // using another list to access an existing list
     LinkedList<int> oneMoreList;
     oneMoreList.printOtherList(middleNodeList);
+
+    // counting number of same values
+    LinkedList<int> myFirstList;
+    LinkedList<int> mySecondList;
+    myFirstList.addLast(4);
+    myFirstList.addLast(3);
+    myFirstList.addLast(2);
+    myFirstList.addLast(1);
+
+    mySecondList.addLast(6);
+    mySecondList.addLast(4);
+    mySecondList.addLast(2);
+
+    int numberOfSameValues = myFirstList.numberSameValues(mySecondList);
+    cout << "Number of same values: " << numberOfSameValues;
+
+    // appendSecondList onto firstList
+    cout << endl;
+    myFirstList.printList();
+    myFirstList.appendOtherList(mySecondList);
+    myFirstList.printList();
+
+    LinkedList<int> list1;
+    LinkedList<int> list2;
+    list1.addLast(1);
+    list1.addLast(2);
+    list1.addLast(4);
+    list2.addLast(1);
+    list2.addLast(3);
+    list2.addLast(4);
+    LinkedList<int> merged = list1.mergeSortedLists(list2);
+    cout << endl;
+    merged.printList();
 }
