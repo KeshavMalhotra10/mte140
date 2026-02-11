@@ -16,7 +16,7 @@ int main()
     // int facOutput = factorial(4);
     // cout << facOutput << endl;
 
-    double power = recursivePower(4, -1);
+    double power = recursivePower(3, 8);
     cout << power << endl;
 }
 
@@ -35,5 +35,8 @@ double recursivePower(double x, int n)
     {
         return recursivePower(1.0 / x, n * -1);
     }
-    return x * recursivePower(x, n - 1);
+    double half = recursivePower(x, n / 2);
+    if (n % 2 == 0)
+        return half * half;
+    return x * half * half;
 }
