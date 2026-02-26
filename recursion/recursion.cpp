@@ -11,13 +11,16 @@ Recursive Case: Functions calls itself with a smaller simpler input
 */
 int factorial(int number);
 double recursivePower(double x, int n); // this function calculates x^n
+bool isPalindrome(const string &s);     // this function calculates if a string is a palindrome(same forward and back)
 int main()
 {
     // int facOutput = factorial(4);
     // cout << facOutput << endl;
 
-    double power = recursivePower(3, 8);
-    cout << power << endl;
+    // double power = recursivePower(3, 8);
+    // cout << power << endl;
+
+    cout << isPalindrome("racecar");
 }
 
 int factorial(int number)
@@ -39,4 +42,14 @@ double recursivePower(double x, int n)
     if (n % 2 == 0)
         return half * half;
     return x * half * half;
+}
+
+bool isPalindrome(const string &s)
+{
+    if (s.size() <= 1)
+        return true;
+    else if (s[0] != s[s.size() - 1])
+        return false;
+    else
+        return isPalindrome(s.substr(1, s.size() - 2));
 }
