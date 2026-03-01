@@ -9,11 +9,15 @@ int sumEvens(int arr[], int size, int index);
 int countVowels(string s, int index);
 int countWays(int n);
 void printPaths(int m, int n, string path);
+int maxRecursive(const int arr[], int left, int right);
 
 int main()
 {
-    string myString = "hello world";
-    cout << countVowels(myString, 0);
+    // string myString = "hello world";
+    // cout << countVowels(myString, 0);
+
+    int myList[] = {7, 9, 6, 14, 10};
+    cout << maxRecursive(myList, 0, 4);
 }
 
 void countDown(int n)
@@ -103,4 +107,17 @@ void printPaths(int m, int n, string path)
         printPaths(m, n - 1, path + "R");
     if (m > 1)
         printPaths(m - 1, n, path + "D");
+}
+
+int maxRecursive(const int arr[], int left, int right)
+{
+    // basecase
+    if (left == right)
+        return arr[left];
+    int mid = (left + right) / 2;
+    int leftMax = maxRecursive(arr, left, mid);
+    int rightMax = maxRecursive(arr, mid + 1, right);
+
+    // recursive step
+    return max(leftMax, rightMax);
 }
