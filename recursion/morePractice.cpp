@@ -10,6 +10,7 @@ int countVowels(string s, int index);
 int countWays(int n);
 void printPaths(int m, int n, string path);
 int maxRecursive(const int arr[], int left, int right);
+bool canPartition(const int arr[], int size, int currentIndex, int sum1, int sum2);
 
 int main()
 {
@@ -120,4 +121,13 @@ int maxRecursive(const int arr[], int left, int right)
 
     // recursive step
     return max(leftMax, rightMax);
+}
+bool canPartition(const int arr[], int size, int currentIndex, int sum1, int sum2)
+{
+    if (currentIndex == size)
+        return sum1 == sum2;
+    bool choice1 = canPartition(arr, size, currentIndex + 1, sum1 + arr[currentIndex], sum2);
+    bool choice2 = canPartition(arr, size, currentIndex + 1, sum1, sum2 + arr[currentIndex]);
+
+    return choice1 || choice2;
 }
