@@ -8,6 +8,7 @@ int maxArray(int arr[], int size, int index);
 int sumEvens(int arr[], int size, int index);
 int countVowels(string s, int index);
 int countWays(int n);
+void printPaths(int m, int n, string path);
 
 int main()
 {
@@ -88,4 +89,18 @@ int countWays(int n)
         return 0;
 
     return countWays(n - 3) + countWays(n - 2) + countWays(n - 1);
+}
+void printPaths(int m, int n, string path)
+{
+    // basecase
+    if (m == 1 && n == 1)
+    {
+        cout << path << endl;
+        return;
+    }
+    // recursive cases
+    if (n > 1)
+        printPaths(m, n - 1, path + "R");
+    if (m > 1)
+        printPaths(m - 1, n, path + "D");
 }
