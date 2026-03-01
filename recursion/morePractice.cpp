@@ -7,6 +7,7 @@ int powerFunction(double base, double power);
 int maxArray(int arr[], int size, int index);
 int sumEvens(int arr[], int size, int index);
 int countVowels(string s, int index);
+int countWays(int n);
 
 int main()
 {
@@ -77,4 +78,14 @@ int countVowels(string s, int index)
         return 1 + countVowels(s, index + 1);
     else
         return countVowels(s, index + 1);
+}
+
+int countWays(int n)
+{
+    if (n == 0)
+        return 1;
+    if (n < 0)
+        return 0;
+
+    return countWays(n - 3) + countWays(n - 2) + countWays(n - 1);
 }
