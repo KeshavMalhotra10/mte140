@@ -84,14 +84,38 @@ public:
         }
         size++;
     }
+    void inOrder(TreeNode<T> *root)
+    {
+        if (root == nullptr)
+            return;
+        inOrder(root->left);
+        cout << root->val << " ";
+        inOrder(root->right);
+    }
+    void inOrder()
+    {
+        inOrder(root);
+    }
+    void postOrder(TreeNode<T> *root)
+    {
+        if (root == nullptr)
+            return;
+        postOrder(root->left);
+        postOrder(root->right);
+        cout << root->val << " ";
+    }
+    void postOrder()
+    {
+        postOrder(root);
+    }
 };
 
 int main()
 {
     BST<int> myBST(1);
-    cout << myBST.search(1);
     myBST.add(3);
     myBST.add(4);
-    cout << myBST.search(3);
-    cout << myBST.search(4);
+    myBST.add(2);
+    myBST.inOrder();
+    myBST.postOrder();
 }
