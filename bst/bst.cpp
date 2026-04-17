@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue> //only used for bfs
+#include <stack> //only used for dfs
 using namespace std;
 template <typename T>
 class TreeNode
@@ -85,6 +86,21 @@ public:
         }
         size++;
     }
+
+    bool remove(const T &element)
+    {
+        if (!search(element))
+            return false;
+        TreeNode<T> *current = root;
+        while (current != nullptr)
+        {
+            if (element < current->val)
+            {
+                continue;
+            }
+        }
+    }
+
     void inOrder(TreeNode<T> *root) // 1+2 --> '1' = left,  '+' = print, '2' = right
     {
         if (root == nullptr)
@@ -144,6 +160,30 @@ public:
     {
         bfs(root);
     }
+    void dfs(TreeNode<T> *root)
+    {
+        if (root == nullptr)
+            return;
+        stack<TreeNode<T> *> s;
+        s.push(root);
+        while (!s.empty())
+        {
+            TreeNode<T> *current = s.top();
+            s.pop();
+            cout << current->val << " ";
+            // push right first then left for DFS
+            if (current->right != nullptr)
+                s.push(current->right);
+            if (current->left != nullptr)
+            {
+                s.push(current->left);
+            }
+        }
+    }
+    void dfs()
+    {
+        dfs(root);
+    }
 };
 
 int main()
@@ -156,4 +196,5 @@ int main()
     myBST.add(30);
     myBST.add(70);
     myBST.bfs();
+    myBST.dfs();
 }
