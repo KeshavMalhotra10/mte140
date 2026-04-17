@@ -87,16 +87,40 @@ public:
         size++;
     }
 
-    bool remove(const T &element)
+    bool remove(const T &element) // fix this remove function
     {
         if (!search(element))
             return false;
+        else if (element == root->val)
+        {
+            delete root;
+            size--;
+        }
         TreeNode<T> *current = root;
+        TreeNode<T> *temp = root;
         while (current != nullptr)
         {
             if (element < current->val)
             {
-                continue;
+                if (current->left->val == element)
+                {
+                    temp = current->left;
+                    current->left = temp->left;
+                    delete temp;
+                    size--;
+                    return true;
+                }
+            }
+            else if (element > current->val)
+            {
+                if (current->right->val == element)
+                {
+                    temp = current->right;
+                    current->right = temp->right;
+                    delete temp;
+                    size--;
+                    return true;
+                }
             }
         }
     }
@@ -196,5 +220,7 @@ int main()
     myBST.add(30);
     myBST.add(70);
     myBST.bfs();
-    myBST.dfs();
+    myBST.remove(7);
+    cout << endl;
+    myBST.bfs();
 }
