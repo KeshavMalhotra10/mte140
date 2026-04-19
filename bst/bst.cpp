@@ -199,14 +199,47 @@ public:
             if (current->right != nullptr)
                 s.push(current->right);
             if (current->left != nullptr)
-            {
                 s.push(current->left);
-            }
         }
     }
     void dfs()
     {
         dfs(root);
+    }
+
+    int minVal(TreeNode<T> *root)
+    {
+        TreeNode<T> *current = root;
+        while (current->left != nullptr)
+        {
+            current = current->left;
+        }
+        cout << current->val << endl;
+        return current->val;
+    }
+    int minVal()
+    {
+        return minVal(root);
+    }
+    int sumBST(TreeNode<T> *root)
+    {
+        if (root == nullptr)
+            return 0;
+        return root->val + sumBST(root->left) + sumBST(root->right);
+    }
+    int sumBST()
+    {
+        return sumBST(root);
+    }
+    int countNodes(TreeNode<T> *root)
+    {
+        if (root == nullptr)
+            return 0;
+        return 1 + countNodes(root->left) + countNodes(root->right); // root nodes is one node, and then you repeat recursively for left and right childnodes
+    }
+    int countNodes()
+    {
+        return countNodes(root);
     }
 };
 
@@ -219,8 +252,5 @@ int main()
     myBST.add(7);
     myBST.add(30);
     myBST.add(70);
-    myBST.bfs();
-    myBST.remove(7);
-    cout << endl;
-    myBST.bfs();
+    cout << myBST.countNodes();
 }
